@@ -10,7 +10,9 @@ import { DataService } from './data.service';
 export class AppComponent {
   title = 'Angular1';
   formedQuery = '';
+  query = '';
   previous_query = '';
+  previous_formedQuery = '';
   offset = 0;
   results = [];
   loading = false;
@@ -22,7 +24,10 @@ export class AppComponent {
   search(offset = 0) {
     if (!(<HTMLInputElement>document.getElementById('search')).value) return;
     this.formQuery(offset);
-    if (this.formedQuery == this.previous_query) return;
+    if (this.formedQuery == this.previous_formedQuery) return;
+    this.previous_query = this.formedQuery;
+    if (this.query != this.previous_query) offset = 0;
+    this.previous_query = this.query;
     this.results = [];
     this.loading = true;
     this.searched = false;
@@ -44,9 +49,8 @@ export class AppComponent {
     );
   }
   formQuery(offset) {
-    let query: string = (<HTMLInputElement>document.getElementById('search'))
-      .value;
-    this.formedQuery = query.replace(/,-_./g, ' ').split(' ').join('+');
+    this.query = (<HTMLInputElement>document.getElementById('search')).value;
+    this.formedQuery = this.query.replace(/,-_./g, ' ').split(' ').join('+');
     this.formedQuery = `?q=${this.formedQuery}&offset=${offset}&pagination=${this.pagination}`;
     return this.formedQuery;
   }
