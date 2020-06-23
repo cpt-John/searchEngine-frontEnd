@@ -6,7 +6,7 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  baseUrl = 'http://localhost:3000/';
+  baseUrl = 'https://searchengine-application.herokuapp.com/';
   constructor(private http: HttpClient) {}
 
   getResults(query): Observable<any> {
