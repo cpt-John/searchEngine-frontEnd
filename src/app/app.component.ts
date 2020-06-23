@@ -26,7 +26,7 @@ export class AppComponent {
     this.formQuery(offset);
     if (this.formedQuery == this.previous_formedQuery) return;
     this.previous_query = this.formedQuery;
-    if (this.query != this.previous_query) offset = 0;
+    if (this.query != this.previous_query) this.offset = 0;
     this.previous_query = this.query;
     this.results = [];
     this.loading = true;
