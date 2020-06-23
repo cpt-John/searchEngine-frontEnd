@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row pt-3">
+        <div class="col-md-5 offset-md-1">
+          <p class="h1 mb-3 font-weight-light font-italic">Simple Search</p>
+          <div
+            style="border-radius: 500px; display: flex; flex-direction: row;"
+            class="searchBox px-2 py-2 pl-3"
+          >
+            <input
+              type="text"
+              id="search"
+              class="border-right flex-grow-1"
+              (keyup.enter)="search()"
+            />
+            <div class="searchIcon" (click)="search()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#5e9cff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="mx-3 float-right pt-1"
+              >
+                <circle cx="10.5" cy="10.5" r="7.5"></circle>
+                <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7 offset-md-1">
+          <div *ngIf="loading" class="text-center pt-5 mt-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div *ngFor="let result of results; index as i" class="my-5">
+            <p class="link mb-1 overflow-link mx-0">{{ result["link"] }}</p>
+            <a
+              class="heading mb-1 font-weight-normal mx-0"
+              href="{{ result['link'] }}"
+              target="_blank"
+            >
+              {{
+                result["title"].join(" ").length > 60
+                  ? (result["title"].join(" ") | slice: 0:60) + ".."
+                  : result["title"].join(" ")
+              }}
+            </a>
+            <p class="description mx-0">
+              {{
+                result["title"].join(" ") +
+                  "\n" +
+                  result["description"].join("\n")
+              }}
+            </p>
+          </div>
+          <div *ngIf="results.length < 1 && searched" class="pt-5 mt-5">
+            <p class="h3">Sorry No Results Match Your Query...</p>
+          </div>
+          <div *ngIf="error" class="pt-5 mt-5">
+            <p class="h3">Network Error...</p>
+          </div>
+          <div
+            *ngIf="results.length > 0"
+            class="pb-5 mb-5"
+            style="display: flex; flex-direction: row; color: blue;"
+          >
+            <p
+              (click)="prev()"
+              class="searchIcon mr-5"
+              [ngClass]="{ muted: offset < 1 }"
+            >
+              &lt; Prev
+            </p>
+
+            <p
+              (click)="next()"
+              class="searchIcon ml-2"
+              [ngClass]="{ muted: results.length < pagination }"
+            >
+              Next &gt;
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
