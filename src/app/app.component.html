@@ -70,7 +70,16 @@
               }}
             </p>
           </div>
-          <div *ngIf="results.length < 1 && searched" class="pt-5 mt-5">
+          <div
+            *ngIf="results.length < pagination && offset > 0"
+            class="pt-5 mt-5"
+          >
+            <p class="h5">no more results..</p>
+          </div>
+          <div
+            *ngIf="results.length < 1 && offset == 0 && searched && !error"
+            class="pt-5 mt-5"
+          >
             <p class="h3">Sorry No Results Match Your Query...</p>
           </div>
           <div *ngIf="error" class="pt-5 mt-5">

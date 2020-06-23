@@ -25,7 +25,7 @@ export class AppComponent {
     if (!(<HTMLInputElement>document.getElementById('search')).value) return;
     this.formQuery(offset);
     if (this.formedQuery == this.previous_formedQuery) return;
-    this.previous_query = this.formedQuery;
+    this.previous_formedQuery = this.formedQuery;
     if (this.query != this.previous_query) this.offset = 0;
     this.previous_query = this.query;
     this.results = [];
