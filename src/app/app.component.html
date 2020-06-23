@@ -71,18 +71,26 @@
             </p>
           </div>
           <div
-            *ngIf="results.length < pagination && offset > 0"
+            *ngIf="
+              ((results.length < pagination && results.length > 0) ||
+                (results.length < pagination && offset > 0)) &&
+              searched
+            "
             class="pt-5 mt-5"
           >
-            <p class="h5">no more results..</p>
+            <p class="h5 font-weight-light font-italic my-5">
+              no more results..
+            </p>
           </div>
           <div
             *ngIf="results.length < 1 && offset == 0 && searched && !error"
-            class="pt-5 mt-5"
+            class="pt-5 my-5"
           >
-            <p class="h3">Sorry No Results Match Your Query...</p>
+            <p class="h3 font-weight-light font-italic my-3">
+              Sorry No Results Match Your Query...
+            </p>
           </div>
-          <div *ngIf="error" class="pt-5 mt-5">
+          <div *ngIf="error" class="pt-5 my-5 font-weight-light font-italic">
             <p class="h3">Network Error...</p>
           </div>
           <div
